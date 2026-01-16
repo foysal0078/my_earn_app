@@ -1,0 +1,66 @@
+h
+            if(adCount >= 20) {
+                const btn = document.getElementById('watch-btn');
+                btn.innerText = "Limit Exceeded";
+                btn.disabled = true;
+                btn.classList.replace('bg-slate-900', 'bg-gray-400');
+            }
+        }
+
+        function earnMoney() {
+            if(adCount < 20) {
+                alert("  ...    ");
+                setTimeout(() => {
+                    balance += 20;
+                    adCount += 1;
+                    localStorage.setItem('bal_' + user.id, balance);
+                    localStorage.setItem('ads_' + user.id, adCount);
+                    updateUI();
+                    alert("!    ");
+                }, 5000);
+            }
+        }
+
+        function completeTask(reward) {
+            alert("   ...    ");
+            setTimeout(() => {
+                balance += reward;
+                localStorage.setItem('bal_' + user.id, balance);
+                updateUI();
+                alert(` ! ${reward}     `);
+            }, 5000);
+        }
+
+        function selectMethod(method) {
+            selectedMethodName = method;
+            document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById('btn-' + method).classList.add('selected');
+        }
+
+        function handleWithdraw() {
+            const amount = document.getElementById('withdraw-amount').value;
+            if(!selectedMethodName) return alert("  !");
+            if(amount < 1000) return alert("   !");
+            if(balance < amount) return alert("   !");
+            alert("           ");
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'text-violet-500'));
+            document.getElementById(pageId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function copyRef() {
+            const copyText = document.getElementById("refLink");
+            copyText.select();
+            document.execCommand("copy");
+            alert("   !");
+        }
+
+        window.onload = updateUI;
+    </script>
+</body>
+</html>
+
